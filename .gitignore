@@ -3,3 +3,4 @@ node_modules
 .eslintignore
 .prettierrc
 .env
+.vscode/settings.json
