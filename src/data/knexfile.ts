@@ -1,9 +1,5 @@
 // Update with your config settings.
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-// const pgPass: string = process.env.PG_PASS;
+import './env';
 
 module.exports = {
   development: {
@@ -11,7 +7,7 @@ module.exports = {
     connection: {
       database: 'to_do_app',
       user: 'postgres',
-      password: process.env.PG_PASS, // <---------problem here
+      password: process.env.PG_PASS,
     },
     migrations: {
       directory: './migrations',
