@@ -1,5 +1,5 @@
 import knex from 'knex';
-import './env';
+require('dotenv').config({ path: '../../.env' });
 
 const knexfile = require('./knexfile');
 

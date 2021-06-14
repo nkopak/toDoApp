@@ -8,7 +8,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex('todo').insert([
     { id: 1, todo_title: 'JS', text: 'Learn pure JS' },
     { id: 2, todo_title: 'knex', text: 'Learn knex' },
-    { id: 3, todo_title: 'Next', text: 'Overview Nest.js' },
+    { id: 3, todo_title: 'Next', text: 'Overview Next.js' },
   ]);
   await knex('user').insert([
     { id: 1, first_name: 'Nazar', last_name: 'Kopak' },
