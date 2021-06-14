@@ -1,6 +1,8 @@
 // Update with your config settings.
-require('dotenv').config({ path: '../../.env' });
 import './env';
+import dotenv = require('dotenv');
+
+dotenv.config({ path: '../../.env' });
 
 module.exports = {
   development: {
