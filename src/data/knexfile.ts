@@ -10,29 +10,29 @@ module.exports = {
     connection: {
       database: 'to_do_app',
       user: 'postgres',
-      password: process.env.PG_PASS,
+      password: process.env.PG_PASS
     },
     migrations: {
-      directory: './migrations',
+      directory: './migrations'
     },
-    seeds: { directory: './seeds' },
+    seeds: { directory: './seeds' }
   },
 
   testing: {
     client: 'pg',
     connection: 'to_do_app',
     migrations: {
-      directory: './migrations',
+      directory: './migrations'
     },
-    seeds: { directory: './seeds' },
+    seeds: { directory: './seeds' }
   },
 
   production: {
     client: 'pg',
     connection: 'to_do_app',
     migrations: {
-      directory: './migrations',
+      directory: './migrations'
     },
-    seeds: { directory: './seeds' },
-  },
+    seeds: { directory: './seeds' }
+  }
 };

@@ -1,22 +1,21 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import db from './data/db';
+import * as express from 'express';
+import * as dotenv from 'dotenv';
+import { adminRouter, authRouter, listRouter, userRouter } from './routes';
 
-const app = express();
 dotenv.config();
+class App {
+  app: express.Application = express();
 
-const port = process.env.PORT;
+  constructor() {
+    this.mountRoutes();
+  }
 
-app.get('/todo', async (req, res) => {
-  const todos = await db('todo');
-  res.json({ todos });
-});
+  mountRoutes(): void {
+    this.app.use('/auth', authRouter);
+    this.app.use('/admin', adminRouter);
+    this.app.use('/lists', listRouter);
+    this.app.use('/users', userRouter);
+  }
+}
 
-app.get('/user', async (req, res) => {
-  const user = await db('user');
-  res.json({ user });
-});
-
-app.listen(port, () => {
-  console.log(`App listening on ${port}`);
-});
+export const app = new App().app;
