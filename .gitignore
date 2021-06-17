@@ -1,6 +1,6 @@
 node_modules
-.eslintrc.js
 .eslintignore
 .prettierrc
 .env
 .vscode/settings.json
+dist
