@@ -3,6 +3,8 @@ import * as dotenv from 'dotenv';
 import { adminRouter, authRouter, listRouter, userRouter } from './routes';
 
 
+
+
 dotenv.config();
 class App {
   app: express.Application = express();
