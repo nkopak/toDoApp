@@ -4,7 +4,7 @@ import db from '../../data/db';
 const router = Router();
 
 router.get('/', async (req, res) => {
-  const user = await db('user').column('first_name');
+  const user = await db('users').column('firstName');
   res.json({ user });
 });
 
