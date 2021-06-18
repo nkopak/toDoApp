@@ -48,15 +48,9 @@
     "build": "tsc -p .",
     "lint": "eslint --fix --ext .ts, src"
   },
-  "lint-staged": {
-    "*.{ts, json}": [
-      "npm run lint",
-      "git add"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm lint"
     }
   },
   "repository": {
