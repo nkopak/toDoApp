@@ -7,7 +7,8 @@ import { adminRouter, authRouter, listRouter, userRouter } from './routes';
 
 
 
-dotenv.config();
+
+dotenv.config()
 class App {
   app: express.Application = express();
 
