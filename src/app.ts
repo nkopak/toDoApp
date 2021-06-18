@@ -10,7 +10,6 @@ dotenv.config()
 
 
 
-s
 class App {
   app: express.Application = express();
 
