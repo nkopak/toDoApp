@@ -5,8 +5,7 @@ import { adminRouter, authRouter, listRouter, userRouter } from './routes';
 dotenv.config()
 
 
-
-
+s
 class App {
   app: express.Application = express();
 

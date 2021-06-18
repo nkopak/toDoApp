@@ -46,12 +46,17 @@
     "start": "rimraf dist && npm run lint && tsc-watch --outDir ./dist --onSuccess \"npm run start:dev\" --onFailure \"'echo Compilation Failed'\"",
     "start:dev": "node -r dotenv/config --inspect=0.0.0.0:9228 ./dist/",
     "build": "tsc -p .",
-    "lint": "prettier --check .",
-    "format": "prettier --write ."
+    "lint": "eslint --fix --ext .ts, src"
+  },
+  "lint-staged": {
+    "*.{ts, json}": [
+      "npm run lint",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format"
+      "pre-commit": "lint-staged"
     }
   },
   "repository": {
