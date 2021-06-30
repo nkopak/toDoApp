@@ -1,4 +1,4 @@
-interface IListTitle {
+export interface IListItem {
   id: number;
   listId: number;
   userId: number;
@@ -6,4 +6,4 @@ interface IListTitle {
   isCompleted: string;
 }
 
-export default IListTitle;
+// export default IListItem;

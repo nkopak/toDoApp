@@ -1,7 +1,7 @@
-interface IList {
+export interface IList {
   id: number;
   userId: number;
-  listTitle: string;
+  todoTitle: string;
 }
 
-export default IList;
+// export default IList;
