@@ -1,5 +1,8 @@
 import * as express from 'express';
 import * as dotenv from 'dotenv';
+import { setup } from './diSetup';
+
+setup();
 import { adminRouter, authRouter, listRouter, userRouter } from './routes';
 
 dotenv.config();
@@ -7,6 +10,7 @@ class App {
   app: express.Application = express();
 
   constructor() {
+    this.app.use(express.json());
     this.mountRoutes();
   }
 

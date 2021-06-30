@@ -2,8 +2,8 @@ import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable('todos', (table: Knex.TableBuilder) => {
-    table.increments('todoId').primary().notNullable();
-    table.integer('userId').references('userId').inTable('users').notNullable();
+    table.increments();
+    table.integer('user_id').notNullable().references('id').inTable('users');
     table.string('todoTitle').notNullable();
   });
 }

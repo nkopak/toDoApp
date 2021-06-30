@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import db from '../../data/db';
+import { db } from '../../data/db';
 
 const router = Router();
 
