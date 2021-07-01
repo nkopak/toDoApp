@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { IListItem } from 'src/models';
-// import { todoItemService } from '../services';
+import { StatusCodes } from 'http-status-codes';
+import { successMessage } from '../messages';
 
 export class TodoItemController {
   todoItemService: any;
@@ -18,7 +19,7 @@ export class TodoItemController {
     try {
       await this.todoItemService.createTodoItem(req.body);
 
-      res.json('Todo item is created');
+      res.status(StatusCodes.CREATED).json(successMessage.TODO_ITEM_CREATED);
     } catch (error) {
       console.error(error);
     }
@@ -29,7 +30,7 @@ export class TodoItemController {
       const { todoId } = req.params;
       const response = await this.todoItemService.getAllTodoItems(todoId);
 
-      res.json(response);
+      res.status(StatusCodes.OK).json(response);
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +41,7 @@ export class TodoItemController {
       const { itemId } = req.params;
       const response = await this.todoItemService.getItemById(itemId);
 
-      res.json(response);
+      res.status(StatusCodes.OK).json(response);
     } catch (error) {
       console.error(error);
     }
@@ -53,8 +54,7 @@ export class TodoItemController {
 
       await this.todoItemService.updateItem(itemId, todoItem);
 
-      res.json(todoItem);
-      // console.log(todoItem);
+      res.status(StatusCodes.OK).json(successMessage.TODO_ITEM_UPDATED);
     } catch (error) {
       console.error(error);
     }
@@ -65,7 +65,7 @@ export class TodoItemController {
       const { itemId } = req.params;
       await this.todoItemService.deleteItem(itemId);
 
-      res.json('Todo item was deleted');
+      res.status(StatusCodes.OK).json(successMessage.TODO_ITEM_DELETED);
     } catch (error) {
       console.error(error);
     }

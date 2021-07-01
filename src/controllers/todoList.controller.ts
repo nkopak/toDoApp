@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { IList } from 'src/models';
+import { StatusCodes } from 'http-status-codes';
+import { successMessage } from '../messages';
 
 export class TodoListController {
   todoListService: any;
@@ -20,7 +22,7 @@ export class TodoListController {
       const response = await this.todoListService.createTodoList(todoList);
       console.log(response);
 
-      res.json('List has been created');
+      res.status(StatusCodes.OK).json(successMessage.TODO_LIST_CREATED);
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +32,7 @@ export class TodoListController {
     try {
       const allTodoLists = await this.todoListService.getAllTodoLists();
 
-      res.json(allTodoLists);
+      res.status(StatusCodes.OK).json(allTodoLists);
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +44,7 @@ export class TodoListController {
 
       const todoById = await this.todoListService.getTodoListById(todoId);
 
-      res.json(todoById);
+      res.status(StatusCodes.OK).json(todoById);
     } catch (error) {
       console.error(error);
     }
@@ -55,7 +57,7 @@ export class TodoListController {
 
       await this.todoListService.updateTodoList(todoId, todoList);
 
-      res.json('List was updated');
+      res.status(StatusCodes.OK).json(successMessage.TODO_LIST_UPDATED);
     } catch (error) {
       console.error(error);
     }
@@ -66,7 +68,7 @@ export class TodoListController {
       const { todoId } = req.params;
       await this.todoListService.deleteTodoList(todoId);
 
-      res.json('List was deleted');
+      res.status(StatusCodes.OK).json(successMessage.TODO_LIST_DELETED);
     } catch (error) {
       console.error(error);
     }
