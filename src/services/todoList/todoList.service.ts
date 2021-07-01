@@ -1,6 +1,4 @@
-// import { IList } from '../../models';
 import { IList } from 'src/models';
-// import { todoListDao } from './dbLayer';
 
 export class TodoListService {
   todoListDao: any;
@@ -9,18 +7,37 @@ export class TodoListService {
 
     this.createTodoList = this.createTodoList.bind(this);
     this.getAllTodoLists = this.getAllTodoLists.bind(this);
+    this.getTodoListById = this.getTodoListById.bind(this);
+    this.updateTodoList = this.updateTodoList.bind(this);
+    this.deleteTodoList = this.deleteTodoList.bind(this);
   }
 
-  async createTodoList(todoListObj: IList): Promise<void> {
-    // await console.log('List object---> ' + todoListObj);
+  async createTodoList(todoListObj: IList): Promise<any> {
     const newTodoList = await this.todoListDao.createTodoList(todoListObj);
-    // await console.log(newTodoList);
 
     return newTodoList;
   }
 
-  async getAllTodoLists(): Promise<void> {
+  async getAllTodoLists(): Promise<any> {
     const response = await this.todoListDao.getAllTodoLists();
+
+    return response;
+  }
+
+  async getTodoListById(todoId: number): Promise<any> {
+    const response = await this.todoListDao.getTodoListById(todoId);
+
+    return response;
+  }
+
+  async updateTodoList(todoId: number, todoListObj: IList): Promise<any> {
+    const response = await this.todoListDao.updateTodoList(todoId, todoListObj);
+
+    return response;
+  }
+
+  async deleteTodoList(todoId: number): Promise<void> {
+    const response = await this.todoListDao.deleteTodoList(todoId);
 
     return response;
   }
