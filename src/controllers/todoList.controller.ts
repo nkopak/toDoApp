@@ -22,7 +22,7 @@ export class TodoListController {
       const response = await this.todoListService.createTodoList(todoList);
       console.log(response);
 
-      res.status(StatusCodes.OK).json(successMessage.TODO_LIST_CREATED);
+      res.status(StatusCodes.CREATED).json(successMessage.TODO_LIST_CREATED);
     } catch (error) {
       console.error(error);
     }
