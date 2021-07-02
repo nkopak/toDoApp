@@ -1,15 +1,18 @@
 import { Router } from 'express';
-import { db } from '../../data/db';
+import { container } from '../../diSetup';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-  const user = await db('users').column('firstName');
-  res.json({ user });
-});
+const userController: any = container.resolve('userController');
 
-router.post('/', (req, res) => {
-  res.json('User is created');
-});
+router.get('/', userController.getAllUsers);
+
+router.get('/:userId', userController.getUserById);
+
+router.post('/', userController.createUser);
+
+router.put('/:userId', userController.updateUser);
+
+router.delete('/:userId', userController.deleteUser);
 
 export const userRouter = router;
