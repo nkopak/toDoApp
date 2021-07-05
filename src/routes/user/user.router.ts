@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { listRouter } from '../list';
 import { container } from '../../diSetup';
 
 const router = Router();
@@ -14,5 +15,7 @@ router.post('/', userController.createUser);
 router.put('/:userId', userController.updateUser);
 
 router.delete('/:userId', userController.deleteUser);
+
+router.use('/:userId/lists', listRouter);
 
 export const userRouter = router;

@@ -1,0 +1,478 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Todo App",
+    "description": "Documentation for Todo App"
+  },
+  "host": "localhost:5000",
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Getting all users",
+        "description": "Method for getting all users",
+        "operationId": "users",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "Users getting was successful"
+          }
+        }
+      },
+      "post": {
+        "summary": "User creation",
+        "description": "Method for creating a user",
+        "operationId": "createUser",
+        "produces": ["application/json"],
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Create user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewUser"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User was successfully created",
+            "schema": {
+              "$ref": "#/definitions/NewUser"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "summary": "Getting user by id",
+        "description": "Method for getting certain user by id",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User getting was successful"
+          }
+        }
+      },
+      "put": {
+        "summary": "User update",
+        "description": "Method for updating a certain user by userId",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Update user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was successfully updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "User delete",
+        "description": "Method for deleting a certain user by userId",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was successfully deleted"
+          }
+        }
+      }
+    },
+    "/users/{userId}/lists": {
+      "get": {
+        "summary": "Getting all todo lists",
+        "description": "Method for getting all todo list of a certain user",
+        "tags": ["Todo lists"],
+        "operationId": "lists",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo lists getting was successful",
+            "schema": {
+              "$ref": "#/definitions/NewTodoList"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Todo list creation",
+        "description": "Method for creating a todo list for a certain user",
+        "tags": ["Todo lists"],
+        "operationId": "createTodoList",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Todo List",
+            "in": "body",
+            "description": "Create todo list",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewTodoList"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Todo list was successfully created",
+            "schema": {
+              "$ref": "#/definitions/NewTodoList"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/lists/{listId}": {
+      "get": {
+        "summary": "Getting todo list by id",
+        "description": "Method for getting a certain todo list of a certain user",
+        "tags": ["Todo lists"],
+        "operationId": "lists",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Id of todo list",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo list getting was successful"
+          }
+        }
+      },
+      "put": {
+        "summary": "Todo list update",
+        "description": "Method for updating a certain user's todo list by listId",
+        "tags": ["Todo lists"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Id of todo list",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Update todo list",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewTodoList"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo list was successfully updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Todo list delete",
+        "description": "Method for deleting a certain user's todo list by listId",
+        "tags": ["Todo lists"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Id of todo list",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo list was successfully deleted"
+          }
+        }
+      }
+    },
+    "/users/{userId}/lists/{listId}/todoItems": {
+      "get": {
+        "summary": "Getting all todo items of certain todo list",
+        "description": "Method for getting all todo items by todo id",
+        "tags": ["Todo items"],
+        "operationId": "items",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Id of todo list",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo items getting was successful"
+          }
+        }
+      },
+      "post": {
+        "summary": "Todo item creation",
+        "description": "Method for creating a todo item",
+        "tags": ["Todo items"],
+        "operationId": "createTodoItem",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Todo Item",
+            "in": "body",
+            "description": "Create todo item",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewTodoItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Todo item was successfully created",
+            "schema": {
+              "$ref": "#/definitions/NewTodoItem"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/lists/{listId}/todoItems/{itemId}": {
+      "get": {
+        "summary": "Getting todo item of certain todo list",
+        "description": "Method for getting todo item by todo item id from a certain todo list",
+        "tags": ["Todo items"],
+        "operationId": "items",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Id of todo list",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "Id of todo list",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo items getting was successful"
+          }
+        }
+      },
+      "put": {
+        "summary": "Todo item update",
+        "description": "Method for updating a certain todo item by itemId",
+        "tags": ["Todo items"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Id of todo list",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "Id of todo item",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Update todo item",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewTodoItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo item was successfully updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Todo item delete",
+        "description": "Method for deleting a certain todo item by itemId",
+        "tags": ["Todo items"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of user",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Id of todo list",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "Id of todo item",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo list was successfully deleted"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "NewUser": {
+      "type": "object",
+      "required": ["firstName", "lastName", "email", "password", "role"],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "NewTodoList": {
+      "type": "object",
+      "required": ["user_id", "todoTitle"],
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "todoTitle": {
+          "type": "string"
+        }
+      }
+    },
+    "NewTodoItem": {
+      "type": "object",
+      "required": ["user_id", "todo_id", "todoTitle", "isCompleted"],
+      "properties": {
+        "userId": {
+          "type": "integer"
+        },
+        "todoId": {
+          "type": "integer"
+        },
+        "todoTitle": {
+          "type": "string"
+        },
+        "isCompleted": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
