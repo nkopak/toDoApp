@@ -1,4 +1,5 @@
 import { IUser } from '../../models';
+import { hashPassword } from '../../helpers';
 
 export class UserService {
   userDao: any;
@@ -8,12 +9,18 @@ export class UserService {
     this.createUser = this.createUser.bind(this);
     this.getAllUsers = this.getAllUsers.bind(this);
     this.getUserById = this.getUserById.bind(this);
+    this.getUserByEmail = this.getUserByEmail.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
   }
 
   async createUser(userObject: IUser): Promise<any> {
-    const response = await this.userDao.createUser(userObject);
+    const { password } = userObject;
+
+    const hashedPassword = await hashPassword(password);
+    // console.log(hashedPassword);
+
+    const response = await this.userDao.createUser(userObject, hashedPassword);
 
     return response;
   }
@@ -26,6 +33,12 @@ export class UserService {
 
   async getUserById(userId: number): Promise<void> {
     const response = await this.userDao.getUserById(userId);
+
+    return response;
+  }
+
+  async getUserByEmail(email: string): Promise<void> {
+    const response = await this.userDao.getUserByEmail(email);
 
     return response;
   }
