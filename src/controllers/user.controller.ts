@@ -11,6 +11,7 @@ export class UserController {
     this.createUser = this.createUser.bind(this);
     this.getAllUsers = this.getAllUsers.bind(this);
     this.getUserById = this.getUserById.bind(this);
+    this.getUserByEmail = this.getUserByEmail.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
   }
@@ -21,7 +22,7 @@ export class UserController {
 
       await this.userService.createUser(newUserObject);
 
-      console.log(newUserObject);
+      // console.log(newUserObject);
 
       res.status(StatusCodes.CREATED).json(successMessage.USER_CREATED);
     } catch (error) {
@@ -46,6 +47,18 @@ export class UserController {
       const userById = await this.userService.getUserById(userId);
 
       res.status(StatusCodes.OK).json(userById);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async getUserByEmail(req: Request, res: Response): Promise<void> {
+    try {
+      const { email } = req.query;
+
+      const response = await this.userService.getUserByEmail(email);
+
+      res.status(StatusCodes.OK).json(response);
     } catch (error) {
       console.error(error);
     }

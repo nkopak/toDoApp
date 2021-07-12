@@ -6,8 +6,9 @@ export class UserDao {
     this.db = db;
   }
 
-  async createUser(userObject: IUser): Promise<any> {
-    const { firstName, lastName, email, password, role } = userObject;
+  async createUser(userObject: IUser, hashedPassword: string): Promise<any> {
+    const { firstName, lastName, email, role } = userObject;
+    const password = hashedPassword;
     const newUser = await this.db('users').insert({
       firstName,
       lastName,
@@ -29,6 +30,12 @@ export class UserDao {
     const userById = await this.db('users').where('id', userId);
 
     return userById;
+  }
+
+  async getUserByEmail(email: string): Promise<any> {
+    const userByEmail = await this.db('users').where('email', email);
+
+    return userByEmail;
   }
 
   async updateUser(userId: number, userObject: IUser): Promise<any> {

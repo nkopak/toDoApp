@@ -1,9 +1,16 @@
 import { Router } from 'express';
+import { container } from '../../diSetup';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.json('Auth');
-});
+const userController: any = container.resolve('userController');
+const userMiddleware: any = container.resolve('userMiddleware');
+
+router.post(
+  '/',
+  userMiddleware.isUserValid,
+  userMiddleware.isUserAlreadyExist,
+  userController.createUser
+);
 
 export const authRouter = router;
