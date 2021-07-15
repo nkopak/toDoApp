@@ -5,7 +5,7 @@ import {
   TodoListController,
   UserController
 } from './controllers';
-import { UserMiddleware } from './middlewares';
+import { AuthMiddleware } from './middlewares';
 import {
   AuthDao,
   AuthService,
@@ -29,7 +29,7 @@ function setup(): void {
     todoItemController: awilix.asClass(TodoItemController),
     userController: awilix.asClass(UserController),
 
-    userMiddleware: awilix.asClass(UserMiddleware),
+    authMiddleware: awilix.asClass(AuthMiddleware),
 
     authService: awilix.asClass(AuthService),
     todoListService: awilix.asClass(TodoListService),

@@ -19,4 +19,10 @@ export class AuthDao {
 
     return newUser;
   }
+
+  async getUserByEmail(email: string): Promise<any> {
+    const userByEmail = await this.db('users').where('email', email);
+
+    return userByEmail;
+  }
 }

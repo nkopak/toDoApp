@@ -3,14 +3,25 @@ import { container } from '../../diSetup';
 
 const router = Router();
 
-const userController: any = container.resolve('userController');
-const userMiddleware: any = container.resolve('userMiddleware');
+const authController: any = container.resolve('authController');
+const authMiddleware: any = container.resolve('authMiddleware');
 
 router.post(
-  '/',
-  userMiddleware.isUserValid,
-  userMiddleware.isUserAlreadyExist,
-  userController.createUser
+  '/register',
+  authMiddleware.isUserValid,
+  authMiddleware.isUserAlreadyExist,
+  authController.register
+);
+
+// router.post('/confirm', authController.confirmUser);
+
+router.post('/login', authController.login);
+
+router.get(
+  '/roles',
+  authMiddleware.token,
+  authMiddleware.checkRole,
+  authController.roles
 );
 
 export const authRouter = router;

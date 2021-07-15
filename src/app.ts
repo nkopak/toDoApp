@@ -24,7 +24,7 @@ class App {
   }
 
   mountRoutes(): void {
-    this.app.use('/register', authRouter);
+    this.app.use('/auth', authRouter);
     this.app.use('/admin', adminRouter);
     // this.app.use('/lists', listRouter);
     this.app.use('/users', userRouter);
