@@ -9,3 +9,7 @@ export const comparePassword = (
   password: string,
   hash: string
 ): Promise<boolean> => bcrypt.compare(password, hash);
+
+// if (!comparePassword) {
+//   throw new Error('Wrong email or password');
+// }
