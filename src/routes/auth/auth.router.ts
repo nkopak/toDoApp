@@ -13,14 +13,12 @@ router.post(
   authController.register
 );
 
-// router.post('/confirm', authController.confirmUser);
-
 router.post('/login', authController.login);
 
 router.get(
   '/roles',
   authMiddleware.token,
-  authMiddleware.checkRole,
+  authMiddleware.isAdmin,
   authController.roles
 );
 

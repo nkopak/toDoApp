@@ -8,7 +8,7 @@ export class UserController {
   constructor({ userService }: { userService: any }) {
     this.userService = userService;
 
-    this.createUser = this.createUser.bind(this);
+    // this.createUser = this.createUser.bind(this);
     this.getAllUsers = this.getAllUsers.bind(this);
     this.getUserById = this.getUserById.bind(this);
     this.getUserByEmail = this.getUserByEmail.bind(this);
@@ -16,25 +16,26 @@ export class UserController {
     this.deleteUser = this.deleteUser.bind(this);
   }
 
-  async createUser(req: Request, res: Response): Promise<void> {
-    try {
-      const newUserObject = req.body;
+  // async createUser(req: Request, res: Response): Promise<void> {
+  //   try {
+  //     const newUserObject = req.body;
 
-      await this.userService.createUser(newUserObject);
+  //     await this.userService.createUser(newUserObject);
 
-      // console.log(newUserObject);
+  //     // console.log(newUserObject);
 
-      res.status(StatusCodes.CREATED).json(successMessage.USER_CREATED);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  //     res.status(StatusCodes.CREATED).json(successMessage.USER_CREATED);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
+  //admin
   async getAllUsers(req: Request, res: Response): Promise<void> {
     try {
-      const allUsers = await this.userService.getAllUsers();
+      const response = await this.userService.getAllUsers();
 
-      res.status(StatusCodes.OK).json(allUsers);
+      res.status(StatusCodes.OK).json(response);
     } catch (error) {
       console.error(error);
     }

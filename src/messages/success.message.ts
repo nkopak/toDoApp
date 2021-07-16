@@ -9,5 +9,7 @@ export const successMessage = {
 
   USER_CREATED: 'User was successfully created.',
   USER_UPDATED: 'User was successfully updated.',
-  USER_DELETED: 'User was successfully deleted.'
+  USER_DELETED: 'User was successfully deleted.',
+
+  USER_LOGGED: 'User was successfully logged in.'
 };

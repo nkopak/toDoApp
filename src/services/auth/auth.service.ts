@@ -14,7 +14,6 @@ export class AuthService {
     const { password } = userObject;
 
     const hashedPassword = await hashPassword(password);
-    // console.log(hashedPassword);
 
     const response = await this.authDao.createUser(userObject, hashedPassword);
 

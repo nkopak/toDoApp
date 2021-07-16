@@ -18,8 +18,8 @@ export class TodoListService {
     return newTodoList;
   }
 
-  async getAllTodoLists(): Promise<any> {
-    const response = await this.todoListDao.getAllTodoLists();
+  async getAllTodoLists(userId: string): Promise<any> {
+    const response = await this.todoListDao.getAllTodoLists(userId);
 
     return response;
   }

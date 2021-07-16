@@ -19,8 +19,7 @@ export class TodoListController {
     try {
       const todoList: IList = req.body;
 
-      const response = await this.todoListService.createTodoList(todoList);
-      console.log(response);
+      await this.todoListService.createTodoList(todoList);
 
       res.status(StatusCodes.CREATED).json(successMessage.TODO_LIST_CREATED);
     } catch (error) {
@@ -30,9 +29,10 @@ export class TodoListController {
 
   async getAllTodoLists(req: Request, res: Response): Promise<void> {
     try {
-      const allTodoLists = await this.todoListService.getAllTodoLists();
+      const { userId } = req.params;
+      const response = await this.todoListService.getAllTodoLists(userId);
 
-      res.status(StatusCodes.OK).json(allTodoLists);
+      res.status(StatusCodes.OK).json(response);
     } catch (error) {
       console.error(error);
     }
@@ -42,9 +42,9 @@ export class TodoListController {
     try {
       const { todoId } = req.params;
 
-      const todoById = await this.todoListService.getTodoListById(todoId);
+      const response = await this.todoListService.getTodoListById(todoId);
 
-      res.status(StatusCodes.OK).json(todoById);
+      res.status(StatusCodes.OK).json(response);
     } catch (error) {
       console.error(error);
     }

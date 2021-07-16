@@ -16,8 +16,8 @@ export class TodoItemService {
     await this.todoItemDao.createTodoItem(todoItemObject);
   }
 
-  async getAllTodoItems(todoId: number): Promise<any> {
-    const response = await this.todoItemDao.getAllTodoItems(todoId);
+  async getAllTodoItems(todoId: number, userId: number): Promise<any> {
+    const response = await this.todoItemDao.getAllTodoItems(todoId, userId);
 
     return response;
   }

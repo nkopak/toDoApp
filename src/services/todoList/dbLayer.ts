@@ -15,8 +15,10 @@ export class TodoListDao {
     return result;
   }
 
-  async getAllTodoLists(): Promise<any> {
-    const allTodoLists = await this.db('todos').select('*');
+  async getAllTodoLists(userId: string): Promise<any> {
+    const allTodoLists = await this.db('todos')
+      .select('*')
+      .where('user_id', userId);
 
     return allTodoLists;
   }
