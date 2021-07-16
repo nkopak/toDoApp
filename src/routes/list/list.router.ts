@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { todoItemRouter } from './todoItem';
 import { container } from '../../diSetup';
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 const todoListController: any = container.resolve('todoListController');
 

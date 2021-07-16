@@ -1,5 +1,4 @@
 export const RegExp = {
-  email:
-    // eslint-disable-next-line max-len
-    /^[^@]+@[^@]+\.[^@]+$/
+  name: /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/,
+  email: /^[^@]+@[^@]+\.[^@]+$/
 };

@@ -22,10 +22,11 @@ export class TodoItemDao {
   }
 
   //
-  async getAllTodoItems(todoId: number): Promise<any> {
+  async getAllTodoItems(todoId: number, userId: number): Promise<any> {
     const allTodoItems = await db('todoItems')
       .select('*')
-      .where('todo_id', todoId);
+      .where('todo_id', todoId)
+      .where('user_id', userId);
 
     return allTodoItems;
   }
@@ -43,8 +44,6 @@ export class TodoItemDao {
         isCompleted: todoItemObject.isCompleted
       })
       .where('id', itemId);
-
-    console.log(todoItemObject);
 
     return updateItem;
   }

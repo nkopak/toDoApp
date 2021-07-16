@@ -420,9 +420,77 @@
           }
         }
       }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "User registration",
+        "description": "Method for registering new user",
+        "tags": ["Auth"],
+        "operationId": "registerUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "User",
+            "in": "body",
+            "description": "Register user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewUser"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User was successfully created.",
+            "schema": {
+              "$ref": "#/definitions/NewUser"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "User login",
+        "description": "Method for existing user login",
+        "tags": ["Auth"],
+        "operationId": "loginUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "User",
+            "in": "body",
+            "description": "Login user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was successfully logged in.",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "Login": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
     "NewUser": {
       "type": "object",
       "required": ["firstName", "lastName", "email", "password", "role"],

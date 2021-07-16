@@ -42,10 +42,6 @@ export class AuthMiddleware {
       const { email } = req.body;
 
       const userRegistered = await this.authService.getUserByEmail(email);
-      // console.log('Middleware works!!!');
-      // console.log('==================');
-      // console.log(userRegistered);
-      // console.log('==================');
 
       if (userRegistered.length) {
         res.status(StatusCodes.CONFLICT).json(errorMessage.USER_ALREADY_EXIST);
@@ -64,12 +60,12 @@ export class AuthMiddleware {
   ): Promise<any> {
     try {
       const token = await req.headers.authorization?.split(' ')[1];
-      // const token = req.get('Authorization');
-
-      // console.log(token);
 
       if (!token) {
-        throw new Error('User is unauthorized');
+        res
+          .status(StatusCodes.UNAUTHORIZED)
+          .json(errorMessage.USER_UNAUTHORIZED);
+        throw new Error(errorMessage.USER_UNAUTHORIZED);
       }
 
       const decodedData = jwt.verify(token, 'JWT_SECRET');
@@ -83,17 +79,17 @@ export class AuthMiddleware {
     }
   }
 
-  async checkRole(
+  async isAdmin(
     req: IRequestExtended,
     res: Response,
     next: NextFunction
   ): Promise<any> {
     try {
-      const { id, role } = req.user;
-      console.log(id);
+      const { role } = req.user;
+      console.log(role);
 
       if (role !== 'admin') {
-        await res.json('You dont have access for this');
+        await res.json(errorMessage.ACCESS_DENIED);
       }
 
       next();

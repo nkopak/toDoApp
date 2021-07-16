@@ -27,8 +27,11 @@ export class TodoItemController {
 
   async getAllTodoItems(req: Request, res: Response): Promise<void> {
     try {
-      const { todoId } = req.params;
-      const response = await this.todoItemService.getAllTodoItems(todoId);
+      const { todoId, userId } = req.params;
+      const response = await this.todoItemService.getAllTodoItems(
+        todoId,
+        userId
+      );
 
       res.status(StatusCodes.OK).json(response);
     } catch (error) {

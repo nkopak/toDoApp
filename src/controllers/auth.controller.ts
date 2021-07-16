@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { successMessage } from '../messages';
+import { errorMessage, successMessage } from '../messages';
 import { comparePassword, tokenizer } from '../helpers';
 export class AuthController {
   authService: any;
@@ -9,11 +9,8 @@ export class AuthController {
     this.authService = authService;
 
     this.register = this.register.bind(this);
-    // this.confirmUser = this.confirmUser.bind(this);
     this.login = this.login.bind(this);
     this.roles = this.roles.bind(this);
-
-    // this.createUser = this.createUser.bind(this);
   }
 
   async register(req: Request, res: Response): Promise<void> {
@@ -43,7 +40,10 @@ export class AuthController {
       console.log(userByEmail);
 
       if (userByEmail.length === 0) {
-        throw new Error(`User with email ${email} not found.`);
+        res
+          .status(StatusCodes.UNAUTHORIZED)
+          .json(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
+        throw new Error(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
       }
 
       const isPassEqual = await comparePassword(
@@ -51,22 +51,21 @@ export class AuthController {
         userByEmail[0].password
       );
 
+      console.log(password);
+      console.log(userByEmail[0].password);
+
       if (!isPassEqual) {
-        // console.log('=============');
-        // console.log('PASSWORD IS INCORRECT');
-        // console.log('=============');
-
-        throw new Error('PASSWORD IS INCORRECT');
+        res
+          .status(StatusCodes.UNAUTHORIZED)
+          .json(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
+        throw new Error(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
       }
-
-      // console.log(userByEmail[0].id);
-      // console.log(userByEmail[0].role);
 
       const tokens = tokenizer(userByEmail[0].id, userByEmail[0].role);
 
       console.log(tokens);
 
-      res.status(StatusCodes.OK).json('User logged');
+      res.status(StatusCodes.OK).json(successMessage.USER_LOGGED);
     } catch (error) {
       console.error(error);
     }
@@ -79,34 +78,4 @@ export class AuthController {
       console.error(error);
     }
   }
-
-  // confirmUser(req: Request, res: Response) {
-  //   res.end();
-  // }
-
-  // async createUser(req: Request, res: Response): Promise<void> {
-  //   try {
-  //     const newUserObject = req.body;
-
-  //     await this.authService.createUser(newUserObject);
-
-  //     // console.log(newUserObject);
-
-  //     res.status(StatusCodes.CREATED).json(successMessage.USER_CREATED);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-  // async getUserByEmail(req: Request, res: Response): Promise<void> {
-  //   try {
-  //     const { email } = req.query;
-
-  //     const response = await this.authService.getUserByEmail(email);
-
-  //     res.status(StatusCodes.OK).json(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 }
