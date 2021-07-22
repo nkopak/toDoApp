@@ -27,7 +27,7 @@ export class AuthMiddleware {
       res
         .status(StatusCodes.CONFLICT)
         .json(errorMessage.FAILED_TO_MATCH_PATTERN);
-      throw new Error();
+      // throw new Error();
     }
 
     next();

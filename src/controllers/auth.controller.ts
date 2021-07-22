@@ -37,10 +37,12 @@ export class AuthController {
 
       const userByEmail = await this.authService.getUserByEmail(email);
 
-      console.log(userByEmail);
-
       if (userByEmail.length === 0) {
         res
+          .send({
+            message: errorMessage.INCORRECT_EMAIL_OR_PASSWORD,
+            auth: false
+          })
           .status(StatusCodes.UNAUTHORIZED)
           .json(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
         throw new Error(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
@@ -51,21 +53,31 @@ export class AuthController {
         userByEmail[0].password
       );
 
-      console.log(password);
-      console.log(userByEmail[0].password);
-
       if (!isPassEqual) {
         res
+          .send({
+            message: errorMessage.INCORRECT_EMAIL_OR_PASSWORD,
+            auth: false
+          })
           .status(StatusCodes.UNAUTHORIZED)
           .json(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
         throw new Error(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
       }
 
-      const tokens = tokenizer(userByEmail[0].id, userByEmail[0].role);
+      const tokens = tokenizer(
+        userByEmail[0].id,
+        userByEmail[0].firstName,
+        userByEmail[0].role
+      );
 
       console.log(tokens);
 
-      res.status(StatusCodes.OK).json(successMessage.USER_LOGGED);
+      res.json({ auth: true, tokens, userByEmail });
+
+      // res
+      //   .send(userByEmail)
+      //   .status(StatusCodes.OK)
+      //   .json(successMessage.USER_LOGGED);
     } catch (error) {
       console.error(error);
     }
