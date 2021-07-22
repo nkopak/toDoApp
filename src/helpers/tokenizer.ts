@@ -2,6 +2,7 @@ import * as jwt from 'jsonwebtoken';
 
 export const tokenizer = (
   id: string,
+  firstName: string,
   role: string
 ): {
   access_token: string;
