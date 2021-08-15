@@ -23,13 +23,13 @@ export class TodoListDao {
     return allTodoLists;
   }
 
-  async getTodoListById(todoId: number): Promise<any> {
+  async getTodoListById(todoId: string): Promise<any> {
     const todoList = await this.db('todos').select('*').where('id', todoId);
 
     return todoList;
   }
 
-  async updateTodoList(todoId: number, todoListObj: IList): Promise<any> {
+  async updateTodoList(todoId: string, todoListObj: IList): Promise<any> {
     const newTodoList = await this.db('todos')
       .update({ todoTitle: todoListObj.todoTitle })
       .where('id', todoId);
@@ -37,8 +37,8 @@ export class TodoListDao {
     return newTodoList;
   }
 
-  async deleteTodoList(todoId: number): Promise<any> {
-    const todoListForDelete = await this.db('todos').where('id', todoId).del();
+  async deleteTodoList(todoId: string): Promise<any> {
+    const todoListForDelete = await this.db('todos').where('id', todoId).returning('*').del();
 
     return todoListForDelete;
   }

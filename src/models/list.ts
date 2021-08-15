@@ -1,6 +1,6 @@
 export interface IList {
-  id: number;
-  userId: number;
+  id: string;
+  userId: string;
   todoTitle: string;
 }
 

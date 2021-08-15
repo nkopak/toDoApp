@@ -39,11 +39,11 @@ export class AuthController {
 
       if (userByEmail.length === 0) {
         res
+          .status(StatusCodes.UNAUTHORIZED)
           .send({
             message: errorMessage.INCORRECT_EMAIL_OR_PASSWORD,
             auth: false
           })
-          .status(StatusCodes.UNAUTHORIZED)
           .json(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
         throw new Error(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
       }
@@ -55,11 +55,11 @@ export class AuthController {
 
       if (!isPassEqual) {
         res
+          .status(StatusCodes.UNAUTHORIZED)
           .send({
             message: errorMessage.INCORRECT_EMAIL_OR_PASSWORD,
             auth: false
           })
-          .status(StatusCodes.UNAUTHORIZED)
           .json(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
         throw new Error(errorMessage.INCORRECT_EMAIL_OR_PASSWORD);
       }
