@@ -19,9 +19,12 @@ export class TodoListController {
     try {
       const todoList: IList = req.body;
 
-      await this.todoListService.createTodoList(todoList);
+      const response = await this.todoListService.createTodoList(todoList);
 
-      res.status(StatusCodes.CREATED).json(successMessage.TODO_LIST_CREATED);
+      res
+        .status(StatusCodes.CREATED)
+        // .json(successMessage.TODO_LIST_CREATED)
+        .json(response);
     } catch (error) {
       console.error(error);
     }
@@ -66,9 +69,12 @@ export class TodoListController {
   async deleteTodoList(req: Request, res: Response): Promise<void> {
     try {
       const { todoId } = req.params;
-      await this.todoListService.deleteTodoList(todoId);
+      const response = await this.todoListService.deleteTodoList(todoId);
 
-      res.status(StatusCodes.OK).json(successMessage.TODO_LIST_DELETED);
+      res
+        .status(StatusCodes.OK)
+        // .json(successMessage.TODO_LIST_DELETED)
+        .json(response);
     } catch (error) {
       console.error(error);
     }

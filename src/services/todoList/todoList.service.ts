@@ -36,7 +36,7 @@ export class TodoListService {
     return response;
   }
 
-  async deleteTodoList(todoId: number): Promise<void> {
+  async deleteTodoList(todoId: string): Promise<void> {
     const response = await this.todoListDao.deleteTodoList(todoId);
 
     return response;

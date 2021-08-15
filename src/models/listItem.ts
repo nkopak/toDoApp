@@ -1,7 +1,7 @@
 export interface IListItem {
-  id: number;
-  todoId: number;
-  userId: number;
+  id: string;
+  todoId: string;
+  userId: string;
   todoTitle: string;
   isCompleted: string;
 }

@@ -21,7 +21,6 @@ export class TodoItemDao {
     return result;
   }
 
-  //
   async getAllTodoItems(todoId: number, userId: number): Promise<any> {
     const allTodoItems = await db('todoItems')
       .select('*')
