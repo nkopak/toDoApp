@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { IList } from 'src/models';
 import { StatusCodes } from 'http-status-codes';
-import { successMessage } from '../messages';
+// import { successMessage } from '../messages';
 
 export class TodoListController {
   todoListService: any;
@@ -58,9 +58,13 @@ export class TodoListController {
       const todoList: IList = req.body;
       const { todoId } = req.params;
 
-      await this.todoListService.updateTodoList(todoId, todoList);
+      const response = await this.todoListService.updateTodoList(
+        todoId,
+        todoList
+      );
 
-      res.status(StatusCodes.OK).json(successMessage.TODO_LIST_UPDATED);
+      res.status(StatusCodes.OK).json(response);
+      // .json(successMessage.TODO_LIST_UPDATED);
     } catch (error) {
       console.error(error);
     }

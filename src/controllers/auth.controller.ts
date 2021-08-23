@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { errorMessage, successMessage } from '../messages';
+import { errorMessage } from '../messages';
 import { comparePassword, tokenizer } from '../helpers';
 export class AuthController {
   authService: any;
@@ -17,15 +17,21 @@ export class AuthController {
     try {
       const newUserObject = req.body;
 
-      await this.authService.createUser(newUserObject);
+      const response = await this.authService.createUser(newUserObject);
 
-      console.log(newUserObject);
+      // console.log(response);
 
-      // const tokens = tokenizer();
+      const tokens = tokenizer(
+        response[0].id,
+        response[0].firstName,
+        response[0].role
+      );
 
-      // console.log(tokens);
+      console.log(tokens);
 
-      res.status(StatusCodes.CREATED).json(successMessage.USER_CREATED);
+      res.json({ auth: true, tokens, response });
+
+      // res.status(StatusCodes.CREATED).json(successMessage.USER_CREATED);
     } catch (error) {
       console.error(error);
     }

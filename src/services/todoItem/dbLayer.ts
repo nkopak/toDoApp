@@ -7,8 +7,12 @@ export class TodoItemDao {
     this.db = db;
   }
 
-  async createTodoItem(todoItemObject: IListItem): Promise<any> {
-    const { userId, todoId, todoTitle, isCompleted } = todoItemObject;
+  async createTodoItem(
+    todoId: string,
+    userId: string,
+    todoItemObject: IListItem
+  ): Promise<any> {
+    const { todoTitle, isCompleted } = todoItemObject;
     const result = await db('todoItems')
       .insert({
         user_id: userId,
@@ -21,7 +25,7 @@ export class TodoItemDao {
     return result;
   }
 
-  async getAllTodoItems(todoId: number, userId: number): Promise<any> {
+  async getAllTodoItems(todoId: string, userId: string): Promise<any> {
     const allTodoItems = await db('todoItems')
       .select('*')
       .where('todo_id', todoId)
@@ -30,25 +34,29 @@ export class TodoItemDao {
     return allTodoItems;
   }
 
-  async getItemById(itemId: number): Promise<any> {
+  async getItemById(itemId: string): Promise<any> {
     const todoItemById = await this.db('todoItems').where('id', itemId);
 
     return todoItemById;
   }
 
-  async updateItem(itemId: number, todoItemObject: IListItem): Promise<any> {
+  async updateItem(itemId: string, todoItemObject: IListItem): Promise<any> {
     const updateItem = await this.db('todoItems')
       .update({
         todoTitle: todoItemObject.todoTitle,
         isCompleted: todoItemObject.isCompleted
       })
-      .where('id', itemId);
+      .where('id', itemId)
+      .returning('*');
 
     return updateItem;
   }
 
-  async deleteItem(itemId: number): Promise<void> {
-    const deleteItem = await this.db('todoItems').where('id', itemId).del();
+  async deleteItem(itemId: string): Promise<void> {
+    const deleteItem = await this.db('todoItems')
+      .where('id', itemId)
+      .del()
+      .returning('*');
 
     return deleteItem;
   }
