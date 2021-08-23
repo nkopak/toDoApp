@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { IListItem } from 'src/models';
 import { StatusCodes } from 'http-status-codes';
-import { successMessage } from '../messages';
+// import { successMessage } from '../messages';
 
 export class TodoItemController {
   todoItemService: any;
@@ -17,9 +17,16 @@ export class TodoItemController {
 
   async createTodoItem(req: Request, res: Response): Promise<void> {
     try {
-      await this.todoItemService.createTodoItem(req.body);
+      const { todoId, userId } = req.params;
 
-      res.status(StatusCodes.CREATED).json(successMessage.TODO_ITEM_CREATED);
+      const response = await this.todoItemService.createTodoItem(
+        todoId,
+        userId,
+        req.body
+      );
+
+      res.status(StatusCodes.CREATED).json(response);
+      // .json(successMessage.TODO_ITEM_CREATED);
     } catch (error) {
       console.error(error);
     }
@@ -55,9 +62,10 @@ export class TodoItemController {
       const { itemId } = req.params;
       const todoItem: IListItem = req.body;
 
-      await this.todoItemService.updateItem(itemId, todoItem);
+      const response = await this.todoItemService.updateItem(itemId, todoItem);
 
-      res.status(StatusCodes.OK).json(successMessage.TODO_ITEM_UPDATED);
+      res.status(StatusCodes.OK).json(response);
+      // .json(successMessage.TODO_ITEM_UPDATED);
     } catch (error) {
       console.error(error);
     }
@@ -66,9 +74,10 @@ export class TodoItemController {
   async deleteItem(req: Request, res: Response): Promise<void> {
     try {
       const { itemId } = req.params;
-      await this.todoItemService.deleteItem(itemId);
+      const response = await this.todoItemService.deleteItem(itemId);
 
-      res.status(StatusCodes.OK).json(successMessage.TODO_ITEM_DELETED);
+      res.status(StatusCodes.OK).json(response);
+      // .json(successMessage.TODO_ITEM_DELETED);
     } catch (error) {
       console.error(error);
     }

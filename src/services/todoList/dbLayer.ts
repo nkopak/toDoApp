@@ -32,13 +32,17 @@ export class TodoListDao {
   async updateTodoList(todoId: string, todoListObj: IList): Promise<any> {
     const newTodoList = await this.db('todos')
       .update({ todoTitle: todoListObj.todoTitle })
-      .where('id', todoId);
+      .where('id', todoId)
+      .returning('*');
 
     return newTodoList;
   }
 
   async deleteTodoList(todoId: string): Promise<any> {
-    const todoListForDelete = await this.db('todos').where('id', todoId).returning('*').del();
+    const todoListForDelete = await this.db('todos')
+      .where('id', todoId)
+      .returning('*')
+      .del();
 
     return todoListForDelete;
   }

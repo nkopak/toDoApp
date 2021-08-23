@@ -9,13 +9,15 @@ export class AuthDao {
   async createUser(userObject: IUser, hashedPassword: string): Promise<any> {
     const { firstName, lastName, email, role } = userObject;
     const password = hashedPassword;
-    const newUser = await this.db('users').insert({
-      firstName,
-      lastName,
-      email,
-      password,
-      role
-    });
+    const newUser = await this.db('users')
+      .insert({
+        firstName,
+        lastName,
+        email,
+        password,
+        role
+      })
+      .returning('*');
 
     return newUser;
   }

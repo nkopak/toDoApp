@@ -12,23 +12,33 @@ export class TodoItemService {
     this.deleteItem = this.deleteItem.bind(this);
   }
 
-  async createTodoItem(todoItemObject: Required<IListItem>): Promise<any> {
-    await this.todoItemDao.createTodoItem(todoItemObject);
+  async createTodoItem(
+    todoId: string,
+    userId: string,
+    todoItemObject: Required<IListItem>
+  ): Promise<any> {
+    const response = await this.todoItemDao.createTodoItem(
+      todoId,
+      userId,
+      todoItemObject
+    );
+
+    return response;
   }
 
-  async getAllTodoItems(todoId: number, userId: number): Promise<any> {
+  async getAllTodoItems(todoId: string, userId: string): Promise<any> {
     const response = await this.todoItemDao.getAllTodoItems(todoId, userId);
 
     return response;
   }
 
-  async getItemById(itemId: number): Promise<any> {
+  async getItemById(itemId: string): Promise<any> {
     const response = await this.todoItemDao.getItemById(itemId);
 
     return response;
   }
 
-  async updateItem(itemId: number, todoItemObject: IListItem): Promise<any> {
+  async updateItem(itemId: string, todoItemObject: IListItem): Promise<any> {
     const response = await this.todoItemDao.updateItem(itemId, todoItemObject);
 
     // console.log(todoItemObject);
@@ -36,7 +46,7 @@ export class TodoItemService {
     return response;
   }
 
-  async deleteItem(itemId: number): Promise<any> {
+  async deleteItem(itemId: string): Promise<any> {
     const response = await this.todoItemDao.deleteItem(itemId);
 
     return response;
