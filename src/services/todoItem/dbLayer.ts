@@ -15,8 +15,8 @@ export class TodoItemDao {
     const { todoTitle, isCompleted } = todoItemObject;
     const result = await db('todoItems')
       .insert({
-        user_id: userId,
-        todo_id: todoId,
+        userId,
+        todoId,
         todoTitle,
         isCompleted
       })
@@ -28,8 +28,8 @@ export class TodoItemDao {
   async getAllTodoItems(todoId: string, userId: string): Promise<any> {
     const allTodoItems = await db('todoItems')
       .select('*')
-      .where('todo_id', todoId)
-      .where('user_id', userId);
+      .where('todoId', todoId)
+      .where('userId', userId);
 
     return allTodoItems;
   }
