@@ -9,7 +9,7 @@ export class TodoListDao {
   async createTodoList(todoListObj: IList): Promise<any> {
     const { userId, todoTitle } = todoListObj;
     const result = await this.db('todos')
-      .insert({ user_id: userId, todoTitle })
+      .insert({ userId, todoTitle })
       .returning('*');
 
     return result;
@@ -18,7 +18,7 @@ export class TodoListDao {
   async getAllTodoLists(userId: string): Promise<any> {
     const allTodoLists = await this.db('todos')
       .select('*')
-      .where('user_id', userId);
+      .where('userId', userId);
 
     return allTodoLists;
   }

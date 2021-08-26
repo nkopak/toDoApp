@@ -10,7 +10,7 @@ export async function up(knex: Knex): Promise<void> {
       .notNullable()
       .defaultTo(knex.raw('uuid_generate_v4()'));
     table
-      .uuid('user_id')
+      .uuid('userId')
       .notNullable()
       .references('id')
       .inTable('users')

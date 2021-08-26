@@ -10,13 +10,13 @@ export async function up(knex: Knex): Promise<void> {
       .notNullable()
       .defaultTo(knex.raw('uuid_generate_v4()'));
     table
-      .uuid('todo_id')
+      .uuid('todoId')
       .notNullable()
       .references('id')
       .inTable('todos')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
-    table.uuid('user_id').notNullable().references('id').inTable('users');
+    table.uuid('userId').notNullable().references('id').inTable('users');
     table.string('todoTitle').notNullable();
     table.boolean('isCompleted').notNullable();
   });
