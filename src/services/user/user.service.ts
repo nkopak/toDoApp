@@ -31,7 +31,7 @@ export class UserService {
     return response;
   }
 
-  async getUserById(userId: number): Promise<void> {
+  async getUserById(userId: string): Promise<void> {
     const response = await this.userDao.getUserById(userId);
 
     return response;
@@ -44,7 +44,14 @@ export class UserService {
   }
 
   async updateUser(userId: number, userObject: IUser): Promise<any> {
-    const response = await this.userDao.updateUser(userId, userObject);
+    const { password } = userObject;
+
+    const hashedPassword = await hashPassword(password);
+
+    const response = await this.userDao.updateUser(userId, {
+      ...userObject,
+      password: hashedPassword
+    });
 
     return response;
   }

@@ -26,8 +26,8 @@ export class UserDao {
     return allUsers;
   }
 
-  async getUserById(userId: number): Promise<any> {
-    const userById = await this.db('users').where('id', userId);
+  async getUserById(userId: string): Promise<any> {
+    const userById = await this.db('users').where('id', userId).returning('*');
 
     return userById;
   }
@@ -48,7 +48,8 @@ export class UserDao {
         password,
         role
       })
-      .where('id', userId);
+      .where('id', userId)
+      .returning('*');
 
     return updatedUser;
   }
@@ -56,7 +57,11 @@ export class UserDao {
   // async changeUser(userId: number, userObject: IUser): Promise<any> {}
 
   async deleteUser(userId: number): Promise<any> {
-    const deletedUser = await this.db('users').where('id', userId).del();
+    await this.db('todos').where('userId', userId).del();
+    const deletedUser = await this.db('users')
+      .where('id', userId)
+      .del()
+      .returning('*');
 
     return deletedUser;
   }
