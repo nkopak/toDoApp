@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { IUser } from '../models';
-import { successMessage } from '../messages';
+// import { successMessage } from '../messages';
 
 export class UserController {
   userService: any;
@@ -69,13 +69,15 @@ export class UserController {
     try {
       const { userId } = req.params;
       const userObject: IUser = req.body;
+      console.log(req.body);
 
-      await this.userService.updateUser(userId, userObject);
+      const response = await this.userService.updateUser(userId, userObject);
 
       // console.log(userObject);
       // console.log(userId);
 
-      res.status(StatusCodes.OK).json(successMessage.USER_UPDATED);
+      res.status(StatusCodes.OK).json(response);
+      // .json(successMessage.USER_UPDATED);
     } catch (error) {
       console.error(error);
     }
@@ -85,9 +87,10 @@ export class UserController {
     try {
       const { userId } = req.params;
 
-      await this.userService.deleteUser(userId);
+      const response = await this.userService.deleteUser(userId);
 
-      res.status(StatusCodes.OK).json(successMessage.USER_DELETED);
+      res.status(StatusCodes.OK).json(response);
+      // .json(successMessage.USER_DELETED);
     } catch (error) {
       console.error(error);
     }
